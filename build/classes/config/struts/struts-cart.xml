@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="cart" namespace="/cart" extends="dang-default">
+		<!-- 定义Action index -->
+		<action name="cart" class="com.tarena.web.action.cart.CartAction">
+			<interceptor-ref name="dangStack"></interceptor-ref>
+			<result name="success">/WEB-INF/jsp/cart/cart_list.jsp</result>
+			<result name="login" type="redirectAction">
+				<param name="namespace">/user</param>
+				<param name="actionName">tologinAction</param></result>
+		</action>
+	</package>
+
+	<package name="ajaxCart" namespace="/cart" extends="json-default">
+		<interceptors>
+			<interceptor name="loginCheck"
+				class="com.tarena.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="dangStack">
+				<interceptor-ref name="loginCheck"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+		<result name="login" type="redirectAction">
+				<param name="namespace">/user</param>
+				<param name="actionName">tologinAction</param>
+			</result></global-results>
+
+		<action name="cartBuy" class="com.tarena.web.action.cart.CartAction"
+			method="buy">
+			<interceptor-ref name="dangStack"></interceptor-ref>
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="user" namespace="/user" extends="dang-default">
+		<!-- 跳转注册页面 -->
+		<action name="toRegistAction" class="com.tarena.web.action.user.ToRegistAction">
+			<result name="register_form">
+				/WEB-INF/jsp/user/register_form.jsp
+			</result>
+		</action>
+		<!-- 注册 -->
+		<action name="regist" class="com.tarena.web.action.user.RegistAction">
+			<interceptor-ref name="tokenSession"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="verify">/WEB-INF/jsp/user/verify_form.jsp</result>
+		</action>
+
+		<!-- 跳转登录 -->
+		<action name="tologinAction" class="com.tarena.web.action.user.ToLoginAction">
+			<result name="login_form">
+				/WEB-INF/jsp/user/login_form.jsp
+		</result>
+		</action>
+		<!-- 登录 -->
+
+		<action name="login" class="com.tarena.web.action.user.LoginAction">
+			<result name="login">/WEB-INF/jsp/user/login_form.jsp</result>
+			<result name="verify">/WEB-INF/jsp/user/verify_form.jsp</result>
+			<result name="success" type="redirectAction">
+		<param name="namespace">/main</param>
+		<param name="actionName">mainAction</param></result>
+		</action>
+		<!-- 邮箱验证 -->
+		<action name="verify" class="com.tarena.web.action.user.VerifyAction">
+			<interceptor-ref name="tokenStack"></interceptor-ref>
+			<result name="verify">/WEB-INF/jsp/user/verify_form.jsp</result>
+			<result name="success">/WEB-INF/jsp/user/register_ok.jsp</result>
+		</action>
+
+		<!-- 登出 -->
+		<action name="logout" class="com.tarena.web.action.user.LogoutAction">
+			<result>/WEB-INF/jsp/user/login_form.jsp</result>
+		</action>
+
+		<!-- 图形验证码 -->
+		<action name="checkCode" class="com.tarena.web.action.user.CheckCodeAction">
+			<result name="success" type="stream">
+				<param name="inputName">imageStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="validate" namespace="/user" extends="json-default">
+		<!-- 注册时的表单ajax验证 -->
+		<action name="registVali" class="com.tarena.web.action.user.RegistValiAction">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+
+</struts>

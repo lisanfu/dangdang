@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<include file="config/struts/struts-user.xml"></include>
+	<include file="config/struts/struts-cart.xml"></include>
+	<include file="config/struts/struts-main.xml"></include>
+	<include file="config/struts/struts-order.xml"></include>
+	
+	<package name="dang-default" extends="struts-default">
+		<!-- 异常处理 -->
+		
+		
+<!--		<global-results>-->
+<!--			<result name="fail">/error.jsp</result>-->
+<!--		</global-results>-->
+<!--		<global-exception-mappings>-->
+<!--			<exception-mapping result="fail" exception="java.lang.Exception"></exception-mapping>-->
+<!--		</global-exception-mappings>-->
+		<!-- 定义一些共通的拦截器,Result等配置 -->
+		<interceptors>
+			<interceptor name="loginCheck" class="com.tarena.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="dangStack">
+				<interceptor-ref name="loginCheck"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="tokenStack">
+				<interceptor-ref name="loginCheck"></interceptor-ref>
+				<interceptor-ref name="tokenSession"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-action-ref name="mainAction"/>
+		<global-results>
+			<result name="login" type="redirect">/user/login_form.jsp</result>
+		</global-results>
+		<action name="mainAction" class="com.tarena.web.action.main.MainAction">
+		<result name="main">/WEB-INF/jsp/main/main.jsp</result>
+		</action>
+	</package>
+	
+</struts>

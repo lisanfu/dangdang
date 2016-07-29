@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="main" namespace="/main" extends="dang-default">
+		<!-- 定义Action index -->
+		
+		<!-- 主页左栏目录 -->
+		<action name="categoryAction" class="com.tarena.web.action.main.CategoryAction">
+			<result name="category">/WEB-INF/jsp/main/category.jsp</result>
+		</action>
+		
+		<!-- 点击主页左栏目录后，所进入页面的左栏目录 -->
+		<action name="booklistAction" class="com.tarena.web.action.main.BookListAction">
+			<result name="list">/WEB-INF/jsp/main/book_list.jsp</result>
+		</action>
+		
+		<!-- 书本详细信息 -->
+		<action name="book_view"  class="com.tarena.web.action.main.BookViewAction">
+			<result name="bookview">/WEB-INF/jsp/main/product.jsp</result>
+		</action>
+		
+		<!-- 编辑推荐栏 -->
+		<action name="recommendAction" class="com.tarena.web.action.main.RecommendAction">
+			<result name="recommend">/WEB-INF/jsp/main/recommend.jsp</result>
+		</action>
+		
+		<!-- 热销图书栏 -->
+		<action name="hotAction" class="com.tarena.web.action.main.HotAction">
+			<result name="hot">/WEB-INF/jsp/main/hot.jsp</result>
+		</action>
+		
+		<!-- 最新上架图书栏 -->
+		<action name="newAction" class="com.tarena.web.action.main.NewAction">
+			<result name="new">/WEB-INF/jsp/main/new.jsp</result>
+		</action>
+		
+		<!-- 最新热卖榜 -->
+		<action name="newHotAction" class="com.tarena.web.action.main.NewHotAction">
+			<result name="newhot">/WEB-INF/jsp/main/hotBoard.jsp</result>
+		</action>
+	</package>
+</struts>

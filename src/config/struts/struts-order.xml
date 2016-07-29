@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+   <package name="order" namespace="/order" extends="dang-default">
+		<!-- 定义Action index -->
+		<!-- 订单确认页面 -->
+		<action name="confirm" class="com.tarena.web.action.order.OrderConfirmAction">
+			<interceptor-ref name="dangStack"></interceptor-ref>
+			<result name="success">/WEB-INF/jsp/order/order_info.jsp</result>
+			<result name="empty" type="redirectAction">
+				<param name="namespace">/cart</param>
+				<param name="actionName">cart</param>
+				<param name="method">view</param>
+			</result>
+		</action>
+		
+		<!-- 送货地址页面  --> 
+		<action name="addressForm" class="com.tarena.web.action.order.AddressFormAction">
+			<interceptor-ref name="dangStack"></interceptor-ref>
+			<result>/WEB-INF/jsp/order/address_form.jsp</result>
+		</action>
+		
+		<!-- 提交订单 -->
+		<action name="orderSubmit" class="com.tarena.web.action.order.OrderSubmitAction">
+			<interceptor-ref name="tokenStack"></interceptor-ref>
+			<result name="empty" type="redirect">/WEB-INF/jsp/main/main.jsp</result>
+			<result>/WEB-INF/jsp/order/order_ok.jsp</result>
+		</action>
+	</package>
+	
+	<package name="ajaxOrder" namespace="/order" extends="json-default">
+		<action name="address" class="com.tarena.web.action.order.AddressAction">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>
